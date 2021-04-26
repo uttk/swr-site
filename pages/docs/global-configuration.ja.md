@@ -1,6 +1,6 @@
-# Global Configuration
+# グローバルな設定
 
-The context `SWRConfig` can provide global configurations ([options](/docs/options)) for all SWR hooks.
+コンテキスト `SWRConfig` によって、すべての SWR フックに対するグローバルな設定 ([オプション](/docs/options)) を提供できます。
 
 ```jsx
 <SWRConfig value={options}>
@@ -8,7 +8,7 @@ The context `SWRConfig` can provide global configurations ([options](/docs/optio
 </SWRConfig>
 ```
 
-In this example, all SWR hooks will use the same fetcher provided to load JSON data, and refresh every 3 seconds by default:
+次の例では、すべての SWR フックに対して、JSON データをロードする同じフェッチャーを使い、デフォルトでは 3 秒ごとに更新するように設定します：
 
 ```jsx
 import useSWR, { SWRConfig } from 'swr'
@@ -16,7 +16,7 @@ import useSWR, { SWRConfig } from 'swr'
 function Dashboard () {
   const { data: events } = useSWR('/api/events')
   const { data: projects } = useSWR('/api/projects')
-  const { data: user } = useSWR('/api/user', { refreshInterval: 0 }) // override
+  const { data: user } = useSWR('/api/user', { refreshInterval: 0 }) // オーバーライド
 
   // ...
 }
