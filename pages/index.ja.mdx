@@ -1,9 +1,9 @@
-import Callout from "nextra-theme-docs/callout";
-import Features from "components/features";
+import Callout from 'nextra-theme-docs/callout'
+import Features from 'components/features'
 
 # SWR
 
-<Features />
+<Features/>
 
 “SWR” という名前は、 [HTTP RFC 5861](https://tools.ietf.org/html/rfc5861) で提唱された HTTP キャッシュ無効化戦略である `stale-while-revalidate` に由来しています。
 SWR は、まずキャッシュからデータを返し(stale)、次にフェッチリクエストを送り(revalidate)、最後に最新のデータを持ってくるという戦略です。
@@ -11,7 +11,7 @@ SWR は、まずキャッシュからデータを返し(stale)、次にフェッ
 <Callout emoji="✅">
   SWR では、 コンポーネントは<strong>常に</strong>データの更新を
   <strong>自動的に</strong>受け取る事が出来ます。
-  <br />
+  <br/>
   そして、 UI は常に<strong>高速</strong>で<strong>リアクティブ</strong>
   なモノになります。
 </Callout>
@@ -19,14 +19,14 @@ SWR は、まずキャッシュからデータを返し(stale)、次にフェッ
 ## 概要
 
 ```jsx
-import useSWR from "swr";
+import useSWR from 'swr'
 
 function Profile() {
-  const { data, error } = useSWR("/api/user", fetcher);
+  const { data, error } = useSWR('/api/user', fetcher)
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
-  return <div>hello {data.name}!</div>;
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+  return <div>hello {data.name}!</div>
 }
 ```
 
@@ -48,7 +48,6 @@ function Profile() {
 - React Native
 
 SWR は、スピード、正確性、安定性のすべての面であなたをカバーし、あなたがより良い経験を構築するのに役立ちます:
-
 - 高速なページナビゲーション
 - インターバルでポーリングする
 - データの依存関係
@@ -63,21 +62,9 @@ SWR は、スピード、正確性、安定性のすべての面であなたを�
 ## コミュニティ
 
 <p className="flex h-6">
-  <img
-    alt="stars"
-    src="https://badgen.net/github/stars/vercel/swr"
-    className="inline-block mr-2"
-  />
-  <img
-    alt="downloads"
-    src="https://badgen.net/npm/dt/swr"
-    className="inline-block mr-2"
-  />
-  <img
-    alt="license"
-    src="https://badgen.net/npm/license/swr"
-    className="inline-block mr-2"
-  />
+  <img alt="stars" src="https://badgen.net/github/stars/vercel/swr" className="inline-block mr-2"/>
+  <img alt="downloads" src="https://badgen.net/npm/dt/swr" className="inline-block mr-2"/>
+  <img alt="license" src="https://badgen.net/npm/license/swr" className="inline-block mr-2"/>
 </p>
 
 SWR は、React フレームワークである [Next.js](https://nextjs.org) を開発した同じチームによって作られています。
