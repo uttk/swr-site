@@ -9,8 +9,7 @@ import Features from 'components/features'
 SWR は、まずキャッシュからデータを返し(stale)、次にフェッチリクエストを送り(revalidate)、最後に最新のデータを持ってくるという戦略です。
 
 <Callout emoji="✅">
-  SWR では、 コンポーネントは<strong>常に</strong>データの更新を
-  <strong>自動的に</strong>受け取る事が出来ます。
+  SWR では、 コンポーネントはデータの更新を<strong>継続的</strong>かつ<strong>自動的</strong>に受け取る事が出来ます。
   <br/>
   そして、 UI は常に<strong>高速</strong>で<strong>リアクティブ</strong>
   なモノになります。
@@ -31,7 +30,7 @@ function Profile() {
 ```
 
 この例では、`useSWR` フックは `key` 文字列と `fetcher` 関数を受け取ります。 `key` はデータの一意な識別子( 通常は API の URL )で、`fetcher` に渡されます。
-`fetcher` はデータを返す任意の非同期関数で、native fetch や Axios のようなツールを使うことが出来ます。
+`fetcher` はデータを返す任意の非同期関数で、ネイティブの fetch や Axios のようなツールを使うことが出来ます。
 
 このフックは、リクエストの状態に基づいて `data` と `error` の 2 つの値を返します。
 
@@ -47,9 +46,9 @@ function Profile() {
 - TypeScript 対応
 - React Native
 
-SWR は、スピード、正確性、安定性のすべての面であなたをカバーし、あなたがより良い経験を構築するのに役立ちます:
+SWR は、スピード、正確性、安定性のすべての面をカバーし、より良い体験を構築するのに役立ちます:
 - 高速なページナビゲーション
-- インターバルでポーリングする
+- 定期的にポーリングする
 - データの依存関係
 - フォーカス時の再検証
 - ネットワーク回復時の再検証
@@ -67,7 +66,7 @@ SWR は、スピード、正確性、安定性のすべての面であなたを�
   <img alt="license" src="https://badgen.net/npm/license/swr" className="inline-block mr-2"/>
 </p>
 
-SWR は、React フレームワークである [Next.js](https://nextjs.org) を開発した同じチームによって作られています。
+SWR は、React フレームワークである [Next.js](https://nextjs.org) と同じチームによって作られています。
 今後のプロジェクトのアップデートについては、Twitter で [@vercel](https://twitter.com/vercel) をフォローしてください。
 
 お気軽に [GitHub のディスカッション](https://github.com/vercel/swr/discussions) に参加してください！
