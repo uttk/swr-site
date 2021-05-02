@@ -5,7 +5,7 @@
 条件付きでデータを取得するには `null` を使用するか、 `key` として関数を渡します。関数がスローまたは falsy な値を返した場合、 SWR はリクエストを開始しません。
 
 ```js
-// 条件付きフェッチ
+// 条件付きでフェッチする
 const { data } = useSWR(shouldFetch ? '/api/data' : null, fetcher)
 
 // ...または、falsyな値を返します
