@@ -71,7 +71,7 @@ function Profile () {
 ```jsx
 mutate('/api/user', newUser, false)      // 再検証せずに変更するには、`false` を使用します
 mutate('/api/user', updateUser(newUser)) // `updateUser` は、このリクエストの Promise であり、
-                                         // 更新されたドキュメントを返します。
+                                         // 更新されたドキュメントを返します
 ```
 
 ## 現在のデータにもとづいたミューテート
@@ -82,14 +82,14 @@ mutate('/api/user', updateUser(newUser)) // `updateUser` は、このリクエ�
 
 ```jsx
 mutate('/api/todos', async todos => {
-  // 完了するために ID`1` で todo を更新しましょう。
+  // 完了するために ID `1` で todo を更新しましょう。
   // この API は更新されたデータを返します。
   const updatedTodo = await fetch('/api/todos/1', {
     method: 'PATCH',
     body: JSON.stringify({ completed: true })
   })
 
-  // filter the list, and return it with the updated item
+  // リストをフィルタリングし、更新されたアイテムを返します
   const filteredTodos = todos.filter(todo => todo.id !== '1')
   return [...filteredTodos, updatedTodo]
 })
@@ -105,7 +105,7 @@ mutate('/api/todos', async todos => {
 try {
   const user = await mutate('/api/user', updateUser(newUser))
 } catch (error) {
-  // ここでユーザーの更新中にエラーを処理します。
+  // ここでユーザーの更新中にエラーを処理します
 }
 ```
 
@@ -126,10 +126,10 @@ function Profile () {
       <h1>My name is {data.name}.</h1>
       <button onClick={async () => {
         const newName = data.name.toUpperCase()
-        // このデータを更新するために API へリクエストを送ります。
+        // このデータを更新するために API へリクエストを送ります
         await requestUpdateUsername(newName)
-        // ローカルデータをすぐに更新し、再検証（再フェッチ）します。
-        // 注：useSWR の mutate を事前にバインドされているものとして使用する場合にはキーは必要ありません。
+        // ローカルデータをすぐに更新し、再検証（再フェッチ）します
+        // 注：useSWR の mutate を事前にバインドされているものとして使用する場合にはキーは必要ありません
         mutate({ ...data, name: newName })
       }}>Uppercase my name!</button>
     </div>
