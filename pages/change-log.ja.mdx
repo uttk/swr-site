@@ -16,7 +16,7 @@ export const ReleasesRenderer = () => {
         .replace(/&#39;/g, "'")
         .replace(/@([a-zA-Z0-9_-]+)(?=(,| ))/g, '<a href="https://github.com/$1" target="_blank" rel="noopener">@$1</a>')
       return `## <a href="${release.html_url}" target="_blank" rel="noopener">${release.tag_name}</a> 
-${new Date(release.published_at) .toDateString()} に公開.\n\n${body}`}).join('\n\n')
+${new Date(release.published_at) .toDateString()} に公開\n\n${body}`}).join('\n\n')
   }</Markdown>
 }
 
