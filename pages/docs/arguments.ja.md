@@ -44,7 +44,7 @@ const { data: orders } = useSWR(user ? ['/api/orders', user] : null, fetchWithUs
 オブジェクトはレンダリングごとに異なるオブジェクトとして扱われるため、レンダリング時にオブジェクトを再作成しないでください。
 
 ```js
-// このようにしないでください！深さをもつオブジェクトはレンダリングごとに変更されます。 Deps will be changed on every render.
+// このようにしないでください！深さをもつオブジェクトはレンダリングごとに変更されます。
 useSWR(['/api/user', { id }], query)
 
 // 代わりに、"安定した" 値のみを渡す必要があります。
