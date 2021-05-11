@@ -37,7 +37,6 @@ function App () {
 </Callout>
 
 サスペンスモードでの `data` は常にフェッチのレスポンスです（よって `undefined` かどうかをチェックする必要はありません）。
-In Suspense mode, `data` is always the fetch response (so you don't need to check if it's `undefined`).
 ただし、エラーが発生した場合は、エラーをキャッチするために[エラーバウンダリー](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors)を使う必要があります：
 
 ```jsx
