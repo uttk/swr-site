@@ -12,7 +12,6 @@ useSWR('/api/user', fetcher)
 
 一部のシナリオでは、`fetcher` 関数に複数の引数（任意の値またはオブジェクト）を渡すと便利です。
 たとえば、認証されたフェッチリクエスト：
-For example an authorized fetch request:
 
 ```js
 useSWR('/api/user', url => fetchWithToken(url, token))
