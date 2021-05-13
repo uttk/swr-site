@@ -1,6 +1,6 @@
 # 引数
 
-デフォルトで `key` は引数として `fetcher` に渡されます。したがって、次のみっつの式は同等です：
+デフォルトで `key` は引数として `fetcher` に渡されます。したがって、次の三つの式は同等です：
 
 ```js
 useSWR('/api/user', () => fetcher('/api/user'))
@@ -27,7 +27,7 @@ useSWR('/api/user', url => fetchWithToken(url, token))
 const { data: user } = useSWR(['/api/user', token], fetchWithToken)
 ```
 
-この関数 `fetchWithToken` は引き続き同じふたつの引数を受け取りますが、キャッシュキーも `token` と関連付けられます。
+この関数 `fetchWithToken` は引き続き同じ二つの引数を受け取りますが、キャッシュキーも `token` と関連付けられます。
 
 ## オブジェクトの受け渡し
 
