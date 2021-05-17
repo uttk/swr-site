@@ -263,7 +263,7 @@ function App () {
   }
 
   return <div>
-    <p>{totalUsers} users listed</p>
+    <p>{totalUsers} ユーザーがリストされています</p>
     {data.map((users, index) => {
       // `data` は、各ページの API レスポンスの配列です
       return users.map(user => <div key={user.id}>{user.name}</div>)
