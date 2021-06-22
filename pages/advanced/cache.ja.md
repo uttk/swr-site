@@ -64,7 +64,7 @@ interface Cache<Data = any> {
 
 ### `mutate`
 
-`createCache` によって返された `mutate` 関数の使い方は、[ミューテーション ページ](/docs/mutation) で解説されているグローバル `muate` 関数と同様ですが、特定のキャッシュプロバイダにバインドされています。たとえば、指定されたキャッシュからいくつかのキーを再検証したい場合は、次のようにします：
+`createCache` によって返された `mutate` 関数の使い方は、[ミューテーションのページ](/docs/mutation) で解説されているグローバル `muate` 関数と同様ですが、特定のキャッシュプロバイダにバインドされています。たとえば、指定されたキャッシュからいくつかのキーを再検証したい場合は、次のようにします：
 
 ```jsx
 const { cache, mutate } = createCache(new Map());
