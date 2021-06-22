@@ -14,7 +14,7 @@ import Callout from 'nextra-theme-docs/callout'
 ### `createCache`
 
 この API は、キャッシュの基礎となる `provider` を引数で受け取り、 SWR フックで使用可能な `cache` インスタンスと
-対応するキャッシュを操作するための `mutate` API を含むオブジェクトを返します。 注意として、グローバル `mutate` API では無いことに注意してください。
+対応するキャッシュを操作するための `mutate` API を含むオブジェクトを返します。 グローバル `mutate` API では無いことに注意してください。
 
 ```js
 const { mutate, cache } = createCache(provider)
