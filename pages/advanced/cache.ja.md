@@ -93,7 +93,7 @@ export default function App() {
 function matchMutate(matcher, data, shouldRevalidate = true) {
   const keys = [];
   if (matcher instanceof RegExp) {
-    // `provider` は、実装したキャッシュ。たとえば、 `Map()` など。
+    // `provider` は、たとえば `Map()` のような、キャッシュの実装です。
     for (const k of provider.keys()) {
       if (matcher.test(k)) {
         keys.push(k);
