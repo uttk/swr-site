@@ -2,8 +2,8 @@
 
 ## 再検証
 
-You can get the `mutate` function from the `useSWRConfig()` hook, and broadcast a revalidation message
-globally to other SWR hooks<sup>*</sup> using the same key by calling `mutate(key)`.
+`useSWRConfig()` フックから `mutate` 関数を取得し、`mutate(key)` を呼び出すことで、
+再検証メッセージを他の SWR フック<sup>\*</sup>に渡すことができます。
 
 次の例では、ユーザーが "Logout" ボタンをクリックしたときに、ログイン情報
 （例えば `<Profile/> `の中身）を自動的に取得する方法を示します。
@@ -31,7 +31,7 @@ function App () {
 }
 ```
 
-*: _It broadcasts to SWR hooks under the same [cache provider](/docs/cache) scope. If no cache provider exists, it will broadcast to all SWR hooks._
+*: _同じ [cache provider](/docs/cache) のスコープ下では、 SWR フックに渡されます。もし cache provider が無ければ、全ての SWR フックに渡されます。_
 
 ## ミューテーションと POST リクエスト
 
@@ -53,13 +53,13 @@ function Profile () {
       <h1>My name is {data.name}.</h1>
       <button onClick={async () => {
         const newName = data.name.toUpperCase()
-        
+
         // 再検証をせずに直ちにローカルデータを更新します
         mutate('/api/user', { ...data, name: newName }, false)
-        
+
         // ソースを更新するために API にリクエストを送信します
         await requestUpdateUsername(newName)
-        
+
         // ローカルデータが最新であることを確かめるために再検証（再取得）を起動します
         mutate('/api/user')
       }}>Uppercase my name!</button>
