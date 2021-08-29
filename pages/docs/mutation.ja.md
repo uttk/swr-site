@@ -31,7 +31,7 @@ function App () {
 }
 ```
 
-*: _同じ [cache provider](/docs/cache) のスコープ下では、 SWR フックに渡されます。もし cache provider が無ければ、全ての SWR フックに渡されます。_
+*: _同じ [cache provider](/docs/cache) のスコープ下では、 SWR フックに渡されます。もし cache provider が無ければ、すべての SWR フックに渡されます。_
 
 ## ミューテーションと POST リクエスト
 

@@ -39,7 +39,7 @@ function App () {
 
 ### Cache Provider
 
-紹介されている全てのオプションに加えて、 `SWRConfig` または `provider` 関数も受け入れます。詳細は[キャッシュ](/docs/cache)セクションを参照してください。
+紹介されているすべてのオプションに加えて、 `SWRConfig` または `provider` 関数も受け入れます。詳細は[キャッシュ](/docs/cache)セクションを参照してください。
 
 ```jsx
 <SWRConfig value={{ provider: () => new Map() }}>
