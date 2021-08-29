@@ -23,7 +23,7 @@ const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 
 - `suspense = false`: React Suspense モードを有効にする [（詳細）](/docs/suspense)
 - `fetcher = window.fetch(url).then(res => res.json())`: フェッチャー関数
-- `revalidateIfStale = true`: automatic revalidation on mount even if there is stale data [(details)](/docs/revalidation#disable-automatic-revalidations)
+- `revalidateIfStale = true`: 古いデータがある場合でも、マウント時に自動再検証をする [（詳細）](/docs/revalidation#disable-automatic-revalidations)
 - `revalidateOnMount`: コンポーネントのマウント時に行われる自動再検証を有効または無効にします
 - `revalidateOnFocus = true`: ウィンドウがフォーカスされたときに自動的に再検証します [（詳細）](/docs/revalidation)
 - `revalidateOnReconnect = true`: ブラウザがネットワーク接続を回復すると自動的に再検証します（ `navigator.onLine` 経由） [（詳細）](/docs/revalidation)
@@ -36,7 +36,7 @@ const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 - `loadingTimeout = 3000`: `onLoadingSlow` イベントをトリガーするためのタイムアウト
 - `errorRetryInterval = 5000`: エラー再試行の間隔
 - `errorRetryCount`: 最大エラー再試行回数
-- `fallback`: a key-value object of multiple fallback data [(example)](/docs/with-nextjs)
+- `fallback`: 初期データの key-value オブジェクト [(例)](/docs/with-nextjs)
 - `fallbackData`: 返される初期データ（注：フックごとに）
 - `onLoadingSlow(key, config)`: リクエストの読み込みに時間がかかりすぎる場合のコールバック関数（`loadingTimeout` を参照してください）
 - `onSuccess(data, key, config)`: リクエストが正常に終了したときのコールバック関数
@@ -44,7 +44,7 @@ const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 - `onErrorRetry(err, key, config, revalidate, revalidateOps)`: エラー再試行のハンドラー
 - `compare(a, b)`: 誤った再レンダリングを回避するために、返されたデータがいつ変更されたかを検出するために使用される比較関数。デフォルトでは、[dequal](https://github.com/lukeed/dequal) が使用されます
 - `isPaused()`: 再検証を一時停止するかどうかを検出する関数であり、この関数が `true` を返す場合はフェッチしたデータとエラーを無視します。デフォルトでは `false` を返します
-- `use`: array of middleware functions [(details)](/docs/middleware)
+- `use`: ミドルウェア関数の配列 [（詳細）](/docs/middleware)
 
 <Callout emoji="💡">
   低速ネットワーク（2G、{'<='} 70Kbps）のとき、デフォルトで <code>errorRetryInterval</code> は 10s になり、
