@@ -3,21 +3,21 @@ import Callout from 'nextra-theme-docs/callout'
 # Cache
 
 <Callout>
-  Upgrade to the latest version (≥ 1.0.0) to use this feature.
+  この機能を使用するには、最新のバージョン（ ≥ 1.0.0 ）にアップグレードしてください。
 </Callout>
 
 <Callout emoji="⚠️">
-  In most cases, you shouldn't directly _write_ to the cache, which might cause undefined behaviors of SWR. If you need to manually mutate a key, please consider using the SWR APIs.<br/>
-  See also: [Mutation](/docs/mutation), [Reset Cache Between Test Cases](#reset-cache-between-test-cases).
+  ほとんどの場合、キャッシュを直接変更しないでください。予期しない動作が発生する可能性があります。キーを手動で変更する必要がある場合は、 SWR API の使用を検討してください。<br/>
+  参照：[ミューテーション](/docs/mutation), [テストケース間のキャッシュのリセット](#テストケース間のキャッシュのリセット)。
 </Callout>
 
-By default, SWR uses a global cache to store and share data across all components. But you can also customize this behavior with the `provider` option of `SWRConfig`.
+デフォルトでは、 SWR はグローバルキャッシュを使用して、すべてのコンポーネント間でデータを保存および共有します。ただし、 `SWRConfig` の `provider` オプションを使用して、その挙動をカスタマイズできます。
 
-Cache providers are intended to enable SWR with more customized storages.
+キャッシュプロバイダーは、よりカスタマイズされたストレージで SWR を実現することを目的としています。
 
-## Cache Provider
+## キャッシュプロバイダー
 
-A cache provider is Map-like object which matches the following TypeScript definition (which can be imported from `swr`):
+キャッシュプロバイダーは、次の TypeScript 定義（ `swr` からインポート可能 ）に一致する Map のようなオブジェクトです：
 
 ```typescript
 interface Cache<Data> {
@@ -27,11 +27,11 @@ interface Cache<Data> {
 }
 ```
 
-For example, a [JavaScript Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance can be directly used as the cache provider for SWR.
+例えば、[JavaScript Map](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Map) インスタンスを SWR のキャッシュプロバイダーとして直接使用できます。
 
-## Create Cache Provider
+## キャッシュプロバイダーの作成
 
-The `provider` option of `SWRConfig` receives a function that returns a [cache provider](#cache-provider). The provider will then be used by all SWR hooks inside that `SWRConfig` boundary. For example:
+`SWRConfig` の `provider` オプションは、 [キャッシュプロバイダー](#キャッシュプロバイダー)を返す関数を受け取ります。受け取ったプロバイダーは、その `SWRConfig` の範囲内のすべての SWR フックで使用されます。例：
 
 ```jsx
 import useSWR, { SWRConfig } from 'swr'
@@ -45,10 +45,10 @@ function App() {
 }
 ```
 
-All SWR hooks inside `<Page/>` will read and write from that Map instance. You can also use other cache provider implementations as well for your specific use case.
+`<Page />` 内のすべての SWR フックは、その Map インスタンスから読み取りと書き込みを行います。また、特定のユースケースに合わせて、他のキャッシュプロバイダーの実装を使用することもできます。
 
 <Callout>
-  In the example above, when the `<App/>` component is re-mounted, the provider will also be re-creacted. Cache providers should be put higher in the component tree, or outside of render.
+  上記の例では、 `<App />` コンポーネントが再マウントされると、プロバイダーも再生成します。キャッシュプロバイダーは、コンポーネントツリーの上位、またはレンダリングの外部に配置する必要があります。
 </Callout>
 
 import { Cache } from 'components/diagrams/cache'
@@ -57,15 +57,15 @@ import { Cache } from 'components/diagrams/cache'
   <Cache/>
 </div>
 
-When nested, SWR hooks will use the upper-level cache provider. If there is no upper-level cache provider, it fallbacks to the default cache provider, which is an empty `Map`.
+ネストされている場合、 SWR フックは上位レベルのキャッシュプロバイダーを使用します。もし上位レベルのキャッシュプロバイダーが無い場合は、空の `Map` をデフォルトのキャッシュプロバイダーとして使用します。
 
 <Callout emoji="⚠️">
-   If a cache provider is used, the global `mutate` will **not** work for SWR hooks under that `<SWRConfig>` boundary. Please use [this](#access-current-cache-provider) instead. 
+  キャッシュプロバイダーを使用している場合、グローバルな `mutate` は `<SWRConfig />` 以下の SWR フックでは**機能しません**。代わりに [こちら](#現在のキャッシュプロバイダーにアクセスする) を使用してください。
 </Callout>
 
-## Access Current Cache Provider
+## 現在のキャッシュプロバイダーにアクセスする
 
-When inside a React component, you need to use the [`useSWRConfig`](/docs/global-configuration#access-to-global-configurations) hook to get access to the current cache provider as well as other configurations including `mutate`:
+React コンポーネント内では、 `mutate` を含む他の設定と同様に、現在のキャッシュプロバイダーへアクセスするために、 [useSWRConfig](/docs/global-configuration#グローバル設定へアクセス) フックを使用する必要があります。
 
 ```jsx
 import { useSWRConfig } from 'swr'
@@ -76,17 +76,17 @@ function Avatar() {
 }
 ```
 
-If it's not under any `<SWRConfig>`, it will return the default configurations.
+`<SWRConfig>` 以下でない場合は、デフォルトの設定を返します。
 
-## Experimental: Extend Cache Provider
+## 実験的：キャッシュプロバイダーの拡張
 
 <Callout emoji="🧪">
-   This is an experimental feature, the behavior might change in future upgrades.
+  これは実験的な機能であり、将来のアップグレードで動作が変更される可能性があります。
 </Callout>
 
-When multiple `<SWRConfig>` components are nested, cache provider can be extended.
+複数の `<SWRConfig>` コンポーネントがネストされている場合、キャッシュプロバイダーを拡張できます。
 
-The first argument for the `provider` function is the cache provider of the upper-level `<SWRConfig>` (or the default cache if there's no parent `<SWRConfig>`), you can use it to extend the cache provider:
+`provider` の最初の引数は、上位レベルの `<SWRConfig>` のキャッシュプロバイダー（ 親が `<SWRConfig>` でない場合はデフォルトのキャッシュ ）です。これを使用して、キャッシュプロバイダーを拡張できます：
 
 ```jsx
 <SWRConfig value={{ provider: (cache) => newCache }}>
@@ -94,13 +94,13 @@ The first argument for the `provider` function is the cache provider of the uppe
 </SWRConfig>
 ```
 
-## Examples
+## 例
 
-### Mutate Multiple Keys from RegEx
+### 正規表現から複数のキーを変更する
 
-With the flexibility of the cache provider API, you can even build a "partial mutation" helper.
+キャッシュプロバイダー API の柔軟性により、"部分的な変更"のヘルパーを構築することもできます。
 
-In the example below, `matchMutate` can receive a regex expression as key, and be used to mutate the ones who matched this pattern.
+以下の例では、 `matchMutate` はキーとして正規表現を受け取り、パターンに一致するものを変更するために使用できます。
 
 ```js
 function useMatchMutate() {
@@ -124,7 +124,7 @@ function useMatchMutate() {
 }
 ```
 
-Then inside your component:
+次に、コンポーネントの内部：
 
 ```jsx
 function Button() {
@@ -136,30 +136,30 @@ function Button() {
 ```
 
 <Callout>
-  Note that this example requires the cache provider to be a Map instance.
+  この例では、キャッシュプロバイダーが Map インスタンスである必要があることに注意してください。
 </Callout>
 
-### LocalStorage Based Persistent Cache
+### ローカルストレージを使った永続キャッシュ
 
-You might want to sync your cache to `localStorage`. Here's an example implementation:
+キャッシュを `localStorage` に同期することをオススメします。実装例は次の通りです：
 
 ```jsx
 function localStorageProvider() {
-  // When initializing, we restore the data from `localStorage` into a map.
+  // 初期化時に、 `localStorage` から Map にデータを復元します。
   const map = new Map(JSON.parse(localStorage.getItem('swr-cache') || '[]'))
 
-  // Before unloading the app, we write back all the data into `localStorage`.
+  // アプリが終了する前に、すべてのデータを `localStorage` に保存します。
   window.addEventListener('beforeunload', () => {
     const appCache = JSON.stringify(Array.from(map.entries()))
     localStorage.setItem('app-cache', appCache)
   })
 
-  // We still use the map for write & read for performance.
+  // パフォーマンスのために、書き込みと読み取りには引き続き Map を使用します。
   return map
 }
 ```
 
-Then use it as a provider:
+次に、プロバイダーとして使用します：
 
 ```jsx
 <SWRConfig value={{ provider: localStorageProvider }}>
@@ -168,12 +168,12 @@ Then use it as a provider:
 ```
 
 <Callout>
-  As an improvement, you can also use the memory cache as a buffer, and write to `localStorage` periodically. You can also implement a similar layered cache with IndexedDB or WebSQL.
+  改善点として、メモリキャッシュをバッファとして使用し、定期的に `localStorage` に書き込むこともできます。 IndexedDB または WebSQL を使用して同様の階層化キャッシュを実装することもできます。
 </Callout>
 
-### Reset Cache Between Test Cases
+### テストケース間のキャッシュのリセット
 
-When testing your application, you might want to reset the SWR cache between test cases. You can simply wrap you application with an empty cache provider. Here's an example with Jest:
+アプリケーションをテストするときは、テストケース間で SWR キャッシュをリセットすることをオススメします。空のキャシュプロバイダーでアプリケーションをラップするだけです。 Jest の例を次に示します：
 
 ```jsx
 describe('test suite', async () => {
@@ -187,13 +187,13 @@ describe('test suite', async () => {
 })
 ```
 
-### Access to the Cache
+### キャッシュへアクセスする
 
-Alert: you should not write to the cache directly, it might cause undefined behavior.
+警告：キャッシュに直接書き込むことはするべきではありません。予期しない動作が発生する可能性があります。
 
 ```jsx
 const { cache } = useSWRConfig()
 
-cache.get(key) // Get the current data for a key.
-cache.clear()  // ⚠️ Clear all the cache. SWR will revalidate upon re-render.
+cache.get(key) // キーの現在のデータを取得します。
+cache.clear()  // ⚠️ すべてのキャッシュをクリアします。 SWRは、再レンダリング時に再検証します。
 ```
