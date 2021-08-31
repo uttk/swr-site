@@ -14,7 +14,7 @@ JavaScriptのダウンロードが開始される前であっても、HTMLの読
 
 ## プログラムによるプリフェッチ
 
-しばしば、リソースを条件付きでプリロードしたい場合があります。例えば、ユーザーが [hovering](https://github.com/GoogleChromeLabs/quicklink) [a](https://github.com/guess-js/guess) [link](https://instant.page) にカーソルを合わせたときにデータをプリロードするような場合です。最も直観的な方法は、グローバルミューテートを使ってキャッシュを再取得し、設定する関数を作成することです。
+しばしば、リソースを条件付きでプリロードしたい場合があります。たとえば、ユーザーが [hovering](https://github.com/GoogleChromeLabs/quicklink) [a](https://github.com/guess-js/guess) [link](https://instant.page) にカーソルを合わせたときにデータをプリロードするような場合です。最も直観的な方法は、グローバルミューテートを使ってキャッシュを再取得し、設定する関数を作成することです。
 
 ```js
 import { mutate } from 'swr'
@@ -30,7 +30,7 @@ Next.js の [ページプリフェッチ](https://nextjs.org/docs/api-reference/
 
 ## 事前データ
 
-もし既に存在しているデータを SWR キャッシュにしたい場合は、 `fallbackData` オプションを使うことができます。例えば:
+もし既に存在しているデータを SWR キャッシュにしたい場合は、 `fallbackData` オプションを使うことができます。たとえば:
 
 ```jsx
 useSWR('/api/data', fetcher, { fallbackData: prefetchedData })

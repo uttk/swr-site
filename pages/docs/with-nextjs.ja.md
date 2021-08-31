@@ -23,7 +23,7 @@ import Callout from 'nextra-theme-docs/callout'
 SWR と一緒に使えば、SEO 用にページを事前レンダリングしたり、クライアント側でのキャッシュ、再検証、フォーカストラッキング、定期的な再取得などの機能を実行する事ができます。
 
 [`SWRConfig`](/docs/global-configuration) の `fallback` オプションを使うと、事前に取得したデータをすべての SWR フックの初期値として渡すことができます。
-例えば、 `getStaticProps` の場合:
+たとえば、 `getStaticProps` の場合:
 
 ```jsx
  export async function getStaticProps () {
