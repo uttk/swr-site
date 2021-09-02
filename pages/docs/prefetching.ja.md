@@ -30,7 +30,7 @@ Next.js の [ページプリフェッチ](https://nextjs.org/docs/api-reference/
 
 ## 事前データ
 
-もし既に存在しているデータを SWR キャッシュにしたい場合は、 `fallbackData` オプションを使うことができます。たとえば:
+もし既に存在しているデータを SWR にキャッシュしたい場合は、 `fallbackData` オプションを使うことができます。たとえば：
 
 ```jsx
 useSWR('/api/data', fetcher, { fallbackData: prefetchedData })
@@ -38,4 +38,4 @@ useSWR('/api/data', fetcher, { fallbackData: prefetchedData })
 
 もし SWR がまだデータを取得していない場合、このフックは初期値として `prefetchedData` を返します。
 
-また `SWRConfig` と `fallback` オプションを使用して、すべての SWR フックと複数のキーに対してこれを構成することもできます。詳しくは、 [Next.js SSG and SSR](/docs/with-nextjs) をチェックしてください。
+また `SWRConfig` と `fallback` オプションを使用して、すべての SWR フックと複数のキーに対してこれを構成することもできます。詳しくは、 [Next.js の SSG と SSR](/docs/with-nextjs) をチェックしてください。

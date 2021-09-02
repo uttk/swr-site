@@ -10,7 +10,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## 使い方
 
-ミドルウェアは SWR フックを受け取り、実行の前後にロジックを実行できます。複数のミドルウェアがある場合、書くミドルウェアは次のミドルウェアをラップします。リストの最後のミドルウェアは、元の SWR フックである `useSWR` を受け取ります。
+ミドルウェアは SWR フックを受け取り、実行の前後にロジックを実行できます。複数のミドルウェアがある場合、各ミドルウェアは次のミドルウェアをラップします。リストの最後のミドルウェアは、元の SWR フックである `useSWR` を受け取ります。
 
 ### API
 
@@ -40,7 +40,7 @@ useSWR(key, fetcher, { use: [myMiddleware] })
 
 ### 拡張
 
-ミドルウェアは通常のオプションのように拡張されます。例えば：
+ミドルウェアは通常のオプションのように拡張されます。たとえば：
 
 ```jsx
 function Bar () {
@@ -147,7 +147,7 @@ function laggy(useSWRNext) {
       laggyDataRef.current = undefined
     }, [])
 
-    // 現在のデーが未定義の場合、前のデータに置き換えられます。
+    // 現在のデータが未定義の場合、前のデータに置き換えられます。
     const dataOrLaggyData = swr.data === undefined ? laggyDataRef.current : swr.data
 
     // 以前のデータを表示していますか？
@@ -171,14 +171,14 @@ const { data, isLagging, resetLaggy } = useSWR(key, fetcher, { use: [laggy] })
 
 ### オブジェクトキーをシリアライズする
 
-デフォルトでは、 SWR は React のように オブジェクトキーを**浅く比較**（ 関連トピック：[オブジェクトの受け渡し - 引数](/docs/arguments#passing-objects) ）します。これは、複数の"チェーン"された `useSWR` がある場合、またはシリアライズできないキーを使用している場合に強力です。
+デフォルトでは、 SWR は React のように オブジェクトキーを**浅く比較**（ 関連トピック：[オブジェクトの受け渡し - 引数](/docs/arguments#オブジェクトの受け渡し) ）します。これは、複数の"チェーン"された `useSWR` がある場合、またはシリアライズできないキーを使用している場合に強力です。
 
 ```jsx
 // 別のフックのデータをキーとして使用するフック
 const { data: user } = useSWR('API_CURRENT_USER', fetcher)
 const { data: userSettings } = useSWR(['API_USER_SETTINGS', user], fetcher)
 
-// グローバル関数をキーとして使用するフック。
+// グローバル関数をキーとして使用するフック
 const { data: items } = useSWR([getItems], getItems)
 ```
 

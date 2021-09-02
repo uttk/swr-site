@@ -8,7 +8,7 @@ import Bleed from 'nextra-theme-docs/bleed'
 
 import Authors, { Author } from 'components/authors'
 
-# Announcing SWR 1.0
+# SWR 1.0 の発表
 
 <Authors date="August 27th, 2021">
   <Author name="Shu Ding" link="https://twitter.com/shuding_" />
@@ -60,7 +60,7 @@ import useSWRInfinite from 'swr/infinite'
 
 ### イミュータブルモード
 
-リソースが変更されない場合は、リソースを**イミュータブル（不変）**として固定したい場合があります。その場合は、自動再検証を無効にして、リクエストを一回だけ行うことをオススメします。また、これを簡単にするためのヘルパーフックがあります：
+リソースが変更されない場合は、リソースを**イミュータブル**として固定したい場合があります。その場合は、自動再検証を無効にして、リクエストを一回だけ行うことをオススメします。また、これを簡単にするためのヘルパーフックがあります：
 
 ```jsx
 import useSWRImmutable from 'swr/immutable'
@@ -70,11 +70,10 @@ import useSWRImmutable from 'swr/immutable'
 useSWRImmutable(key, fetcher, options)
 ```
 
-`useSWR` フックとまったく同じ API を備えていますが、タブフォーカスやネットワーク復帰時に再検証されることはありません。また、新しいオプション `revalidateIfStale` もあり、これを使用して動作を正確に制御できます。詳細については、[こちら](/docs/revalidation#disable-automatic-revalidations)をご覧ください。
+`useSWR` フックとまったく同じ API を備えていますが、タブフォーカスやネットワーク復帰時に再検証されることはありません。また、新しいオプション `revalidateIfStale` もあり、これを使用して動作を正確に制御できます。詳細については、[こちら](/docs/revalidation#再接続時の再検証)をご覧ください。
 
 ### カスタムキャッシュプロバイダー
 
-By default, SWR uses a single global cache to store all the data. In 1.0, you are able to customize it with the new `provider` option:
 デフォルトでは、 SWR は単一のグローバルキャッシュを使用してすべてのデータを保存します。 1.0 では、新しい `provider` オプションを使用してカスタマイズできます：
 
 ```jsx
@@ -85,7 +84,7 @@ By default, SWR uses a single global cache to store all the data. In 1.0, you ar
 </SWRConfig>
 ```
 
-この新機能を使用して、多くの強力な処理を実行できます。ここにいくつかの例があります： [RegEx を使用した複数のキーの変更](/docs/advanced/cache#mutate-multiple-keys-from-regex)、 [LocalStorage を使った永続キャッシュ](/docs/advanced/cache#localstorage-を使った永続キャッシュ)、[テストケース間のキャッシュのリセット](/docs/advanced/cache#テストケース間のキャッシュのリセット)。
+この新機能を使用して、多くの強力な処理を実行できます。ここにいくつかの例があります： [RegEx を使用した複数のキーの変更](/docs/advanced/cache#正規表現から複数のキーを変更する)、 [LocalStorage を使った永続キャッシュ](/docs/advanced/cache#localstorage-を使った永続キャッシュ)、[テストケース間のキャッシュのリセット](/docs/advanced/cache#テストケース間のキャッシュのリセット)
 
 この新しいキャッシュプロバイダー API は、 React 18 の同時レンダリングとも互換性があります。キャッシュプロバイダーを追加する場合は、必ず `useSWRConfig()` から返されるグローバルな `mutate` 関数を使用してください。
 
@@ -93,7 +92,7 @@ By default, SWR uses a single global cache to store all the data. In 1.0, you ar
 
 ### useSWRConfig()
 
-現在のキャッシュプロバイダーとグローバルな `mutate` 関数を含む、すべてのグローバル設定を返す新しいフック API があります：
+現在のキャッシュプロバイダーとグローバルな `mutate` 関数を含むすべてのグローバル設定を返す新しいフック API があります：
 
 ```jsx
 import { useSWRConfig } from 'swr'
@@ -118,19 +117,17 @@ SWR ミドルウェアは、 SWR フックの上に抽象化を構築して再�
 useSWR(key, fetcher, { use: [...middleware] })
 ```
 
-この機能を使用すると、多くの新しいアイディアを実装できます。いくつかの例を作成しました：[_Request Logger_](/docs/middleware#request-logger), [_Keep Previous Data When Changing the Key_](/docs/middleware#keep-previous-result), and [_Serialize Object Keys_](/docs/middleware#serialize-object-keys).
+この機能を使用すると、多くの新しいアイディアを実装できます。いくつかの例を作成しました：[リクエストを記録する](/docs/middleware#リクエストを記録する)、 [以前の結果を保持する](/docs/middleware#以前の結果を保持する)、 [オブジェクトキーをシリアライズする](/docs/middleware#オブジェクトキーをシリアライズする)
 
 詳細については、[ミドルウェア API](/docs/middleware) を確認してください。
 
 ### 改善とより良いテストカバレッジ
 
-0.x 以降、何百もの小さな改善とバグ修正を行いました。 SWR には、データ取得のほとんどのエッジケースをカバーする 157 のテストがあります。詳細については、[変更ログ]((https://github.com/vercel/swr/releases)をお読みください。
+0.x 以降、何百もの小さな改善とバグ修正を行いました。 SWR には、データ取得のほとんどのエッジケースをカバーする 157 のテストがあります。詳細については、[変更ログ](https://github.com/vercel/swr/releases)をお読みください。
 
 ### ドキュメントの翻訳
 
-Thanks to our [contributors](https://github.com/vercel/swr-site/graphs/contributors) and Nextra’s [i18n feature](https://nextra.vercel.app/features/i18n), we now offer SWR documentation in five different languages:
-
-コントリビューターと Nextra の i18n 機能のおかげで、 5 つの異なる言語で SWR ドキュメントを提供できるようになりました。
+[コントリビューター](https://github.com/vercel/swr-site/graphs/contributors)と Nextra の [i18n 機能](https://nextra.vercel.app/features/i18n)のおかげで、 5 つの異なる言語で SWR ドキュメントを提供できるようになりました：
 
 - [英語](https://swr.vercel.app)
 - [スペイン語](https://swr.vercel.app/es-ES)
@@ -181,7 +178,7 @@ Thanks to our [contributors](https://github.com/vercel/swr-site/graphs/contribut
 
 ### デフォルトのフェッチャーはもうありません
 
-SWR は、デフォルトのフェッチャー（ データを JSON として解析する `fetch` の呼び出し ）を提供しなくなりました。変更を移行する最も簡単な方法は、 `<SWRConfig>` コンポーネントを使用する事です：
+SWR は、デフォルトのフェッチャー（ データを JSON として解析する `fetch` の呼び出し ）を提供しなくなりました。変更を移行する最も簡単な方法は、 `<SWRConfig>` コンポーネントを使用することです：
 
 ```jsx
 <SWRConfig value={{ fetcher: (url) => fetch(url).then(res => res.json()) }}>
@@ -192,7 +189,7 @@ SWR は、デフォルトのフェッチャー（ データを JSON として解
 useSWR(key, (url) => fetch(url).then(res => res.json()))
 ```
 
-### フックから返された `mutate` を使用する事をオススメします
+### フックから返された `mutate` を使用することをオススメします
 
 これは重大な変更**ではありません**が、 `useSWRConfig` フックから返された `mutate` を常に使用するように**推奨**します：
 
@@ -247,6 +244,6 @@ SWR のベータ版を使用している場合や、文章化されていない 
 
 ## ありがとう！
 
-ライブラリに貢献してくださった [Toru Kobayashi](https://twitter.com/koba04)さん と [Yixuan Xu](https://twitter.com/yixuanxu94)さん、翻訳やドキュメントを作成してくださった [Paco Coursey](https://twitter.com/pacocoursey)さん, [uttk](https://github.com/uttk)さん, [Tomohiro SHIOYA](https://github.com/shioyang)さん, [Markoz Peña](https://github.com/markozxuu)さん, [SeulGi Choi](https://github.com/cs09g)さん, [Fang Lu](https://github.com/huzhengen)さん に感謝します。このリリースは彼らなしでは実現できませんでした。
+ライブラリに貢献してくださった [Toru Kobayashi](https://twitter.com/koba04)さん と [Yixuan Xu](https://twitter.com/yixuanxu94)さん、翻訳やドキュメントを作成してくださった [Paco Coursey](https://twitter.com/pacocoursey)さん、 [uttk](https://github.com/uttk)さん、 [Tomohiro SHIOYA](https://github.com/shioyang)さん、 [Markoz Peña](https://github.com/markozxuu)さん、 [SeulGi Choi](https://github.com/cs09g)さん、 [Fang Lu](https://github.com/huzhengen)さん に感謝します。このリリースは彼らなしでは実現できませんでした。
 
 また、コミュニティ全体では [110 名のコントリビューター](https://github.com/vercel/swr/graphs/contributors)（ ＋ [45 名のドキュメントコントリビューター](https://github.com/vercel/swr-site/graphs/contributors) ）、そしてご協力いただいた皆様、フィードバックをいただいた皆様にも感謝しています。

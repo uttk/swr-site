@@ -17,13 +17,13 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## デフォルトデータで事前レンダリング
 
-もしページを事前レンダリングする必要がある場合、 Next.js は二つの形式の事前レンダリングの方法をサポートしています:
+もしページを事前レンダリングする必要がある場合、 Next.js は二つの形式の事前レンダリングの方法をサポートしています：
 **Static Generation (SSG)** と **Server-side Rendering (SSR)** 。
 
 SWR と一緒に使えば、SEO 用にページを事前レンダリングしたり、クライアント側でのキャッシュ、再検証、フォーカストラッキング、定期的な再取得などの機能を実行する事ができます。
 
 [`SWRConfig`](/docs/global-configuration) の `fallback` オプションを使うと、事前に取得したデータをすべての SWR フックの初期値として渡すことができます。
-たとえば、 `getStaticProps` の場合:
+たとえば、 `getStaticProps` の場合：
 
 ```jsx
  export async function getStaticProps () {
@@ -45,7 +45,7 @@ function Article() {
 }
 
 export default function Page({ fallback }) {
-  // `SWRConfig` の範囲内の SWR フックは、設定の値を使用します
+  // `SWRConfig` の範囲内の SWR フックは、設定の値を使用します。
   return (
     <SWRConfig value={{ fallback }}>
       <Article />
