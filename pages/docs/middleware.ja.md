@@ -1,6 +1,6 @@
 import Callout from 'nextra-theme-docs/callout'
 
-# Middleware
+# ミドルウェア
 
 <Callout>
   この機能を使うには最新バージョン（ ≥ 1.0.0 ）へアップグレードしてください。
