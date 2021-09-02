@@ -100,7 +100,7 @@ function logger(useSWRNext) {
       return fetcher(...args)
     }
 
-    // 新しい fetcher でフックを実行します。
+    // 新しいフェッチャーでフックを実行します。
     return useSWRNext(key, extendedFetcher, config)
   }
 }
@@ -190,7 +190,7 @@ function serialize(useSWRNext) {
     // キーをシリアライズする
     const serializedKey = Array.isArray(key) ? JSON.stringify(key) : key
 
-    // シリアライズされたキーを渡し、 fetcher でシリアライズを解除します。
+    // シリアライズされたキーを渡し、フェッチャーでシリアライズを解除します。
     return useSWRNext(serializedKey, (k) => fetcher(...JSON.parse(k)), config)
   }
 }
@@ -202,7 +202,7 @@ useSWR(['/api/user', { id: '73' }], fetcher, { use: [serialize] })
 <SWRConfig value={{ use: [serialize] }}>
 ```
 
-レンダリング間でオブジェクトが変わる可能性があることを心配する必要はありません。常に同じ文字列にシリアライズされるため、 fetcher は引き続きオブジェクトを引数に受け取ります。
+レンダリング間でオブジェクトが変わる可能性があることを心配する必要はありません。常に同じ文字列にシリアライズされるため、フェッチャーは引き続きオブジェクトを引数に受け取ります。
 
 <Callout>
   さらに、 `JSON.stringify` の代わりに [fast-json-stable-stringify](https://github.com/epoberezkin/fast-json-stable-stringify) のようなライブラリを使用できます — より高速で安定しています。

@@ -179,9 +179,9 @@ Thanks to our [contributors](https://github.com/vercel/swr-site/graphs/contribut
 + useSWR(key, fetcher, { fallbackData: ... })
 ```
 
-### デフォルトの Fetcher はもうありません
+### デフォルトのフェッチャーはもうありません
 
-SWR は、デフォルトの fetcher （ データを JSON として解析する `fetch` の呼び出し ）を提供しなくなりました。変更を移行する最も簡単な方法は、 `<SWRConfig>` コンポーネントを使用する事です：
+SWR は、デフォルトのフェッチャー（ データを JSON として解析する `fetch` の呼び出し ）を提供しなくなりました。変更を移行する最も簡単な方法は、 `<SWRConfig>` コンポーネントを使用する事です：
 
 ```jsx
 <SWRConfig value={{ fetcher: (url) => fetch(url).then(res => res.json()) }}>
