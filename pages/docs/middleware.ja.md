@@ -3,44 +3,44 @@ import Callout from 'nextra-theme-docs/callout'
 # Middleware
 
 <Callout>
-  Upgrade to the latest version (≥ 1.0.0) to use this feature.
+  この機能を使うには最新バージョン（ ≥ 1.0.0 ）へアップグレードしてください。
 </Callout>
 
-The middleware feature is a new addition in SWR 1.0 that enables you to execute logic before and after SWR hooks.
+ミドルウェア機能は SWR 1.0 に新しく追加されたもので、 SWR の前後にロジックを実行できます。
 
-## Usage
+## 使い方
 
-Middleware receive the SWR hook and can execute logic before and after running it. If there are multiple middleware, each middleware wraps the next middleware. The last middleware in the list will receive the original SWR hook `useSWR`.
+ミドルウェアは SWR フックを受け取り、実行の前後にロジックを実行できます。複数のミドルウェアがある場合、書くミドルウェアは次のミドルウェアをラップします。リストの最後のミドルウェアは、元の SWR フックである `useSWR` を受け取ります。
 
 ### API
 
 ```jsx
 function myMiddleware (useSWRNext) {
   return (key, fetcher, config) => {
-    // Before hook runs...
-    
-    // Handle the next middleware, or the `useSWR` hook if this is the last one.
+    // フックが実行される前...
+
+    // 次のミドルウェア、またはこれが最後のミドルウェアの場合は `useSWR` を処理します。
     const swr = useSWRNext(key, fetcher, config)
 
-    // After hook runs...
+    // フックが実行された後...
     return swr
   }
 }
 ```
 
-You can pass an array of middleware as an option to `SWRConfig` or `useSWR`:
+オプションとして、ミドルウェアの配列を `SWRConfig` または `useSWR` に渡すことができます：
 
 ```jsx
 <SWRConfig value={{ use: [myMiddleware] }}>
 
-// or...
+// または...
 
 useSWR(key, fetcher, { use: [myMiddleware] })
 ```
 
-### Extend
+### 拡張
 
-Middleware will be extended like regular options. For example:
+ミドルウェアは通常のオプションのように拡張されます。例えば：
 
 ```jsx
 function Bar () {
@@ -59,21 +59,21 @@ function Foo() {
 }
 ```
 
-is equivalent to:
+と同等です：
 
 ```js
 useSWR(key, fetcher, { use: [a, b, c] })
 ```
 
-### Multiple Middleware
+### 複数のミドルウェア
 
-Each middleware wraps the next middleware, and the last one just wraps the SWR hook. For example:
+各ミドルウェアは次のミドルウェアをラップし、最後のミドルウェアは SWR フックをラップするだけです。例として：
 
 ```jsx
 useSWR(key, fetcher, { use: [a, b, c] })
 ```
 
-The order of middleware executions will be `a → b → c`, as shown below:
+以下に示すように、ミドルウェアの実行順は `a → b → c` になります：
 
 ```plaintext
 enter a
@@ -85,77 +85,75 @@ enter a
 exit  a
 ```
 
-## Examples
+## 例
 
-### Request Logger
+### リクエストを記録する
 
-Let's build a simple request logger middleware as an example. It prints out all the fetcher requests sent from this SWR hook. You can also use this middleware for all SWR hooks by adding it to `SWRConfig`.
-
+例として、リクエストを記録する簡単なミドルウェアを作成してみましょう。この SWR フックから送信されたすべての取得リクエストを出力します。このミドルウェアを `SWRConfig` に追加することで、すべての SWR フックに使用することもできます。
 
 ```jsx
 function logger(useSWRNext) {
   return (key, fetcher, config) => {
-    // Add logger to the original fetcher.
+    // 元の fetcher に logger を追加します。
     const extendedFetcher = (...args) => {
       console.log('SWR Request:', key)
       return fetcher(...args)
     }
 
-    // Execute the hook with the new fetcher.
+    // 新しい fetcher でフックを実行します。
     return useSWRNext(key, extendedFetcher, config)
   }
 }
 
-// ... inside your component
+// ... コンポーネント内
 useSWR(key, fetcher, { use: [logger] })
 ```
 
-Every time the request is fired, it outputs the SWR key to the console:
+リクエストが発生するたびに、 SWR キーがコンソールに出力されます：
 
 ```plaintext
 SWR Request: /api/user1
 SWR Request: /api/user2
 ```
 
-### Keep Previous Result
+### 以前の結果を保持する
 
-Sometimes you want the data returned by `useSWR` to be "laggy". Even if the key changes,
-you still want it to return the previous result until the new data has loaded.
+`useSWR` によって返されるデータを"遅延"させたい場合があります。
+キーが変わっても新しいデータがロードされるまで、以前の結果を返すようにします。
 
-This can be built as a laggy middleware together with `useRef`. In this example, we are also going to
-extend the returned object of the `useSWR` hook:
+これは、 `useRef` と一緒に遅延ミドルウェアとして構築できます。例では、 `useSWR` フックの返されたオブジェクトを拡張します：
 
 ```jsx
 import { useRef, useEffect, useCallback } from 'react'
 
-// This is a SWR middleware for keeping the data even if key changes.
+// これはキーが変更された場合でもデータを保持するための SWR ミドルウェアです。
 function laggy(useSWRNext) {
   return (key, fetcher, config) => {
-    // Use a ref to store previous returned data.
+    // 以前に返されたデータを格納するには、 ref を使用します。
     const laggyDataRef = useRef()
 
-    // Actual SWR hook.
+    // 実際の SWR フック。
     const swr = useSWRNext(key, fetcher, config)
 
     useEffect(() => {
-      // Update ref if data is not undefined.
+      // データが未定義ではない場合は、 ref を更新します。
       if (swr.data !== undefined) {
         laggyDataRef.current = swr.data
       }
     }, [swr.data])
 
-    // Expose a method to clear the laggy data, if any.
+    // 遅延データがある場合は、それをクリアするメソッドを公開します。
     const resetLaggy = useCallback(() => {
       laggyDataRef.current = undefined
     }, [])
 
-    // Fallback to previous data if the current data is undefined.
+    // 現在のデーが未定義の場合、前のデータに置き換えられます。
     const dataOrLaggyData = swr.data === undefined ? laggyDataRef.current : swr.data
 
-    // Is it showing previous data?
+    // 以前のデータを表示していますか？
     const isLagging = swr.data === undefined && laggyDataRef.current !== undefined
 
-    // Also add a `isLagging` field to SWR.
+    // また `isLagging` フィールドを SWR に追加します。
     return Object.assign({}, swr, {
       data: dataOrLaggyData,
       isLagging,
@@ -165,34 +163,34 @@ function laggy(useSWRNext) {
 }
 ```
 
-When you need a SWR hook to be laggy, you can then use this middleware:
+SWR フックを遅らせる必要がある場合は、次のミドルウェアを使用できます：
 
 ```js
 const { data, isLagging, resetLaggy } = useSWR(key, fetcher, { use: [laggy] })
 ```
 
-### Serialize Object Keys
+### オブジェクトキーをシリアライズする
 
-By default, SWR **shallow compares** (related topic: [Passing Objects – Arguments](/docs/arguments#passing-objects)) object keys just like React. This is powerful when you have multiple "chained" `useSWR` hooks, or using non serializable keys:
+デフォルトでは、 SWR は React のように オブジェクトキーを**浅く比較**（ 関連トピック：[オブジェクトの受け渡し - 引数](/docs/arguments#passing-objects) ）します。これは、複数の"チェーン"された `useSWR` がある場合、またはシリアライズできないキーを使用している場合に強力です。
 
 ```jsx
-// Hook that uses another hook's data as key
+// 別のフックのデータをキーとして使用するフック
 const { data: user } = useSWR('API_CURRENT_USER', fetcher)
 const { data: userSettings } = useSWR(['API_USER_SETTINGS', user], fetcher)
 
-// Hook that uses a global function as key
+// グローバル関数をキーとして使用するフック。
 const { data: items } = useSWR([getItems], getItems)
 ```
 
-However, in some cases you are just passing serializable objects as the key. You can serialize object keys to ensure its stability, a simple middleware can help:
+しかし、場合によってはシリアライズ可能なオブジェクトをキーとして渡すだけな時があります。その場合は、オブジェクトキーをシリアライズして安定性を確保できます。単純なミドルウェアが役立ちます：
 
 ```jsx
 function serialize(useSWRNext) {
   return (key, fetcher, config) => {
-    // Serialize the key.
+    // キーをシリアライズする
     const serializedKey = Array.isArray(key) ? JSON.stringify(key) : key
 
-    // Pass the serialized key, and unserialize it in fetcher.
+    // シリアライズされたキーを渡し、 fetcher でシリアライズを解除します。
     return useSWRNext(serializedKey, (k) => fetcher(...JSON.parse(k)), config)
   }
 }
@@ -200,12 +198,12 @@ function serialize(useSWRNext) {
 // ...
 useSWR(['/api/user', { id: '73' }], fetcher, { use: [serialize] })
 
-// ... or enable it globally with
+// ... またはグローバルに有効にします
 <SWRConfig value={{ use: [serialize] }}>
 ```
 
-You don’t need to worry that object might change between renders. It’s always serialized to the same string, and the fetcher will still receive those object arguments.
+レンダリング間でオブジェクトが変わる可能性があることを心配する必要はありません。常に同じ文字列にシリアライズされるため、 fetcher は引き続きオブジェクトを引数に受け取ります。
 
 <Callout>
-  Furthermore, you can use libs like [fast-json-stable-stringify](https://github.com/epoberezkin/fast-json-stable-stringify) instead of `JSON.stringify` — faster and stabler.
+  さらに、 `JSON.stringify` の代わりに [fast-json-stable-stringify](https://github.com/epoberezkin/fast-json-stable-stringify) のようなライブラリを使用できます — より高速で安定しています。
 </Callout>
